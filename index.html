@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pandu — Asisten AI SMA IHBS</title>
+    <meta name="description" content="Pandu: Asisten Virtual AI resmi SMA Ibnu Hajar Boarding School" />
+
+    <!-- Tailwind CSS CDN (utility classes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles (theme tokens + components) -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="font-sans min-h-screen flex flex-col">
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header sticky top-0 z-50">
+      <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+
+        <!-- Logo + Brand -->
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-[var(--green)] flex items-center justify-center shadow-sm flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-4-3.5l4 2 4-2" />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h1 class="brand-name text-base font-bold leading-tight tracking-tight">Pandu</h1>
+            <p class="brand-sub text-xs leading-tight truncate">Asisten AI · SMA IHBS</p>
+          </div>
+        </div>
+
+        <!-- Right controls -->
+        <div class="flex items-center gap-2 flex-shrink-0">
+
+          <!-- Online status badge -->
+          <span class="status-badge flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full select-none">
+            <span class="status-dot w-2 h-2 rounded-full inline-block animate-pulse"></span>
+            Online
+          </span>
+
+          <!-- Dark / Light toggle -->
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Ganti tema gelap/terang"
+            title="Ganti tema"
+          >
+            <!-- Sun icon (shown in dark mode) -->
+            <svg class="icon-sun w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.71.71M6.34 17.66l-.71.71M17.66 17.66l-.71-.71M6.34 6.34l-.71-.71M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg class="icon-moon w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main class="flex-1 flex flex-col max-w-4xl w-full mx-auto px-4 py-6 gap-5">
+
+      <!-- Welcome card -->
+      <section
+        id="welcome-card"
+        class="welcome-card rounded-2xl p-6 text-center"
+        aria-label="Selamat datang"
+      >
+        <!-- Orange accent icon -->
+        <div class="welcome-icon-wrap w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="welcome-icon w-7 h-7" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </div>
+
+        <h2 class="welcome-title text-xl font-bold mb-1">Selamat Datang di Pandu!</h2>
+        <p class="welcome-desc text-sm mb-5 leading-relaxed max-w-sm mx-auto">
+          Asisten virtual resmi <strong>SMA Ibnu Hajar Boarding School</strong>.
+          Tanyakan apa saja seputar tata tertib, perizinan, jadwal, dan panduan keasramaan.
+        </p>
+
+        <!-- Suggestion chips -->
+        <div class="flex flex-wrap gap-2 justify-center" id="suggestion-chips">
+          <button class="chip" data-text="Apa saja hak dan kewajiban siswa?">📋 Hak &amp; Kewajiban</button>
+          <button class="chip" data-text="Bagaimana prosedur perizinan kepulangan?">🏠 Perizinan Pulang</button>
+          <button class="chip" data-text="Jelaskan kategori pelanggaran dan sistem poin.">⚠️ Poin Pelanggaran</button>
+          <button class="chip" data-text="Apa saja barang yang dilarang dibawa ke sekolah?">🚫 Barang Terlarang</button>
+        </div>
+      </section>
+
+      <!-- Chat messages -->
+      <section
+        id="chat-container"
+        class="flex flex-col gap-4 flex-1 overflow-y-auto pb-2"
+        aria-live="polite"
+        aria-label="Percakapan"
+      >
+        <!-- Injected by script.js -->
+      </section>
+
+    </main>
+
+    <!-- ===== COPYRIGHT FOOTER ===== -->
+    <div class="copyright-footer" role="contentinfo">
+      <div class="copyright-inner">
+
+        <!-- Divider line with gradient -->
+        <div class="copyright-divider" aria-hidden="true"></div>
+
+        <div class="copyright-content">
+          <!-- Left: brand mark -->
+          <span class="copyright-brand">
+            <svg class="copyright-leaf" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m-4-3.5l4 2 4-2" />
+            </svg>
+            Pandu
+          </span>
+
+          <!-- Center: copyright text -->
+          <p class="copyright-text">
+            &copy; <span id="copyright-year"></span> Dibuat dengan
+            <span class="copyright-heart" aria-label="cinta">♥</span>
+            oleh
+            <a
+              href="https://robbyilham.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="copyright-link"
+            >robbyilham</a>
+          </p>
+
+          <!-- Right: tagline -->
+          <span class="copyright-tagline">SMA IHBS &nbsp;·&nbsp; AI Assistant</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== FOOTER / INPUT BAR ===== -->
+    <footer class="site-footer sticky bottom-0 z-40">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+
+        <form id="chat-form" class="flex items-end gap-2" autocomplete="off" novalidate>
+          <label for="user-input" class="sr-only">Tulis pertanyaan Anda</label>
+          <textarea
+            id="user-input"
+            name="message"
+            rows="1"
+            placeholder="Tulis pertanyaan Anda..."
+            class="chat-input flex-1"
+            aria-label="Tulis pertanyaan"
+          ></textarea>
+
+          <button
+            id="send-btn"
+            type="submit"
+            class="send-btn"
+            aria-label="Kirim pesan"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+          </button>
+        </form>
+
+        <p class="footer-hint">
+          Tekan <kbd>Enter</kbd> untuk kirim &nbsp;·&nbsp; <kbd>Shift+Enter</kbd> untuk baris baru
+        </p>
+
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
